@@ -11,7 +11,7 @@ DEFAULT_STRIDE = 100
 
 
 class BertLateInteraction(BertBaseRanker):
-    def __init__(self, bert_flavor, window_size, stride, is_sbert: bool=False):
+    def __init__(self, bert_flavor, window_size, stride):
         """Constructor.
 
             :param bert_flavor:     the name of the underlying Transformer/BERT. Various
@@ -22,7 +22,7 @@ class BertLateInteraction(BertBaseRanker):
 
 
         """
-        super().__init__(bert_flavor=bert_flavor, is_sbert=is_sbert)
+        super().__init__(bert_flavor)
         self.window_size = window_size
         self.stride = stride
 

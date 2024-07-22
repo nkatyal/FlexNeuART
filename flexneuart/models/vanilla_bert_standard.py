@@ -38,8 +38,8 @@ class VanillaBertStandard(BertBaseRanker):
 
     """
     def __init__(self, bert_flavor=BERT_BASE_MODEL, dropout=DEFAULT_BERT_DROPOUT,
-                 use_mean_pool=False, use_trust_remote_code: bool = False, is_sbert: bool = False):
-        super().__init__(bert_flavor, use_trust_remote_code=use_trust_remote_code, is_sbert=is_sbert)
+                 use_mean_pool=False, use_trust_remote_code: bool = False):
+        super().__init__(bert_flavor, use_trust_remote_code=use_trust_remote_code)
         self.dropout = torch.nn.Dropout(dropout)
         self.use_mean_pool = use_mean_pool
         print('Dropout', self.dropout, 'use_mean_pool:', use_mean_pool)

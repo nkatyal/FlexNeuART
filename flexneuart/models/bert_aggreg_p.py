@@ -36,9 +36,9 @@ class BertAggregPRanker(BertSplitSlideWindowRanker):
     """
     def __init__(self, bert_flavor, aggreg_type,
                  window_size=DEFAULT_WINDOW_SIZE, stride=DEFAULT_STRIDE,
-                 dropout=DEFAULT_BERT_DROPOUT, is_sbert=False):
+                 dropout=DEFAULT_BERT_DROPOUT):
         super().__init__(bert_flavor, cls_aggreg_type=CLS_AGGREG_STACK,
-                         window_size=window_size, stride=stride, is_sbert=is_sbert)
+                         window_size=window_size, stride=stride)
         self.dropout = torch.nn.Dropout(dropout)
         print('Dropout', self.dropout)
         self.cls = torch.nn.Linear(self.BERT_SIZE, 1)
