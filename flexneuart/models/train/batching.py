@@ -16,7 +16,7 @@
 #
 import torch
 
-from flexneuart.models.train.sampler import TrainSamplerFixedChunkSize, TrainSample
+from flexneuart.models.train.sampler import TrainSamplerFixedChunkSize, TrainSamplerFixedChunkSizeUnique, TrainSamplerFixedChunkSizeGroupByQuery, TrainSample
 from flexneuart.models.base import BaseModel
 from flexneuart.models.train.batch_obj import BatchObject
 
@@ -129,7 +129,7 @@ class BatchingTrainFixedChunkSize(BatchingBase):
                         dataset : tuple,
                         model : BaseModel,
                         max_query_len, max_doc_len,
-                        train_sampler: TrainSamplerFixedChunkSize,
+                        train_sampler: TrainSamplerFixedChunkSizeUnique,
                  ):
         super().__init__(batch_size=batch_size,
                          dataset=dataset,

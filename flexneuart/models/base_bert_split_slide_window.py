@@ -39,7 +39,7 @@ class BertSplitSlideWindowRanker(BertBaseRanker):
         A BERT-based ranker that sub-batches long documents by splitting them into
         possibly overlapping chunks (i.e., we use a sliding window to construct them).
     """
-    def __init__(self, bert_flavor, cls_aggreg_type, window_size, stride):
+    def __init__(self, bert_flavor, cls_aggreg_type, window_size, stride, is_sbert=False):
         """Constructor.
 
             :param bert_flavor:     the name of the underlying Transformer/BERT. Various
@@ -52,7 +52,7 @@ class BertSplitSlideWindowRanker(BertBaseRanker):
 
 
         """
-        super().__init__(bert_flavor)
+        super().__init__(bert_flavor=bert_flavor, is_sbert=is_sbert)
         self.window_size = window_size
         self.stride = stride
         assert cls_aggreg_type in [CLS_AGGREG_AVG, CLS_AGGREG_MAX, CLS_AGGREG_STACK], \

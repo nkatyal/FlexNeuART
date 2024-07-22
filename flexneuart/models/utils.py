@@ -11,6 +11,7 @@ import torch
 import argparse
 
 from transformers import PreTrainedTokenizerBase
+from sentence_transformers import SentenceTransformer
 
 from flexneuart.config import BERT_BASE_MODEL
 
@@ -35,7 +36,7 @@ def is_longformer(bert_flavor: str):
     return bert_flavor.lower().find('longformer') >= 0
 
 def init_model(obj_ref, bert_flavor : str, is_aggreg: bool=False,
-               is_interact: bool=False, use_trust_remote_code: bool=False):
+               is_interact: bool=False, use_trust_remote_code: bool=False, is_sbert: bool=False):
     """Instantiate a model, a tokenizer, and remember their parameters.
 
     :param obj_ref:       an object to initialize.
@@ -47,17 +48,23 @@ def init_model(obj_ref, bert_flavor : str, is_aggreg: bool=False,
 
     obj_ref.BERT_MODEL = bert_flavor
 
-    model = AutoModel.from_pretrained(bert_flavor,
+    if is_sbert:
+        st_model = SentenceTransformer(bert_flavor)
+        tokenizer = st_model.tokenizer
+        model = st_model._first_module().auto_model
+        config = model.config
+    else:
+        model = AutoModel.from_pretrained(bert_flavor,
                                       trust_remote_code=use_trust_remote_code)
-
-    config = model.config
+        tokenizer: PreTrainedTokenizerBase = AutoTokenizer.from_pretrained(bert_flavor)
+        config = model.config
     if is_aggreg:
         setattr(obj_ref, AGGREG_ATTR, model)
         return
     if is_interact:
         setattr(obj_ref, INTERACT_ATTR, model)
         return
-    tokenizer: PreTrainedTokenizerBase = AutoTokenizer.from_pretrained(bert_flavor)
+    
 
     setattr(obj_ref, BERT_ATTR, model)
     obj_ref.config = config

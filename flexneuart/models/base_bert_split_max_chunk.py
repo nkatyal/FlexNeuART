@@ -18,7 +18,7 @@ class BertSplitMaxChunkRanker(BertBaseRanker):
         chunks that are as large as possible (except the last chunk). For example,
     """
 
-    def __init__(self, bert_flavor):
+    def __init__(self, bert_flavor, is_sbert: bool=False):
         """Constructor.
 
             :param bert_flavor:   the name of the underlying Transformer/BERT. Various
@@ -26,7 +26,7 @@ class BertSplitMaxChunkRanker(BertBaseRanker):
                                   the object BaseModelOutputWithPoolingAndCrossAttentions.
 
         """
-        super().__init__(bert_flavor)
+        super().__init__(bert_flavor=bert_flavor, is_sbert=is_sbert)
 
     def forward(self, **inputs):
         raise NotImplementedError

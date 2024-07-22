@@ -36,7 +36,7 @@ class BertBaseRanker(BaseModel):
        We generally/broadly consider these models to be BERT-variants, hence, the name of the base class.
     """
 
-    def __init__(self, bert_flavor, use_trust_remote_code: bool=False):
+    def __init__(self, bert_flavor, use_trust_remote_code: bool=False, is_sbert: bool=False):
         """Bert ranker constructor.
 
                 :param bert_flavor:   The name of the underlying Transformer/BERT or a path
@@ -48,7 +48,7 @@ class BertBaseRanker(BaseModel):
             :param use_trust_remote_code:   Whether to trust remote code. Default to False.
         """
         super().__init__()
-        init_model(self, bert_flavor, use_trust_remote_code=use_trust_remote_code)
+        init_model(self, bert_flavor, use_trust_remote_code=use_trust_remote_code, is_sbert=is_sbert)
 
     def bert_param_names(self):
         """
