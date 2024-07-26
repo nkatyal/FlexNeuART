@@ -357,8 +357,6 @@ class TrainSamplerFixedChunkSizeGroupByQuery:
             for neg_id in neg_id_arr:
                 self.negative_docs_seen[qid].add(neg_id)
 
-            if(len(pos_ids) > 1):
-                print(f'Query id: {qid}, Positive Document id: {pos_id}, QNum: {self.qnum}, Num positive ids: {len(pos_ids)}')
             return TrainSample(qid=qid,
                                pos_id=pos_id, pos_id_score = query_train_pairs[pos_id],
                                neg_ids=neg_id_arr,
